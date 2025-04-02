@@ -3,28 +3,28 @@
  */
 class HomeService {
   hello() {
-    return new Promise((resolve) => resolve('hello world'));
+    return new Promise(resolve => resolve("hello world"))
   }
 
   helloName(name) {
     return Promise.resolve({
-      data: `你好，${name}!`,
-    });
+      data: `你好，${name}!`
+    })
   }
 
   getPersonInfo(params) {
     return Promise.resolve({
-      data: params,
-    });
+      data: params
+    })
   }
 
   postTest(params) {
     return Promise.resolve({
-      data: params,
-    });
+      data: params
+    })
   }
 }
 
-const homeService = new HomeService();
+const homeService = new HomeService()
 
-export default homeService;
+export default homeService

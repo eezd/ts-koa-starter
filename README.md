@@ -1,48 +1,77 @@
-本人平常喜欢用`nodejs`瞎 JB 写写东西，但是每次都要创建项目、安装依赖等等前戏工作，这让我很烦。于是乎写了个空的起手式，这样以后写东西直接 clone 下来就行了。
+基于 [chenlong-io/ts-koa-starter](https://github.com/chenlong-io/ts-koa-starter) 二次开发
 
-我觉得跟我一样的人应该很多，所以也把这个小东西分享给大家。
+**大部分代码由 claude 完成**
 
-# ts-koa-starter
+如果想使用OEM，请用nestjs。我认为KOA就是用于快速开发的，有什么能比手写SQL更快呢？
 
-这是一个`koa`+`typescript`的起手式(简单的空环境)
+新增文件上传，JWT，登录，权限校验，重新封装了 PostgreSQL Mysql Sqlite。
 
-注意：node 版本请在 v18 以上
+代码格式化采用 [@antfu/eslint-config](https://github.com/antfu/eslint-config)
 
-如果你想再加个`typeorm`来玩玩数据库，请 clone 下来后切换到`bt-ts-koa-typeorm`分支
+需自行创建 .env.development / .env.production
 
-ps:`typeorm`是一个非常好的数据库 ORM，如果你没玩过，请务必尝试一下 💪💪💪
+```env
+PORT=3000
 
-## 项目结构
+SITE=http://localhost:3000
 
+PG_HOST=
+PG_PORT=5432
+PG_USER=
+PG_PASSWORD=
+PG_DB_NAME=
+
+MYSQL_HOST=
+MYSQL_PORT=3306
+MYSQL_USER=
+MYSQL_PASSWORD=
+MYSQL_DB_NAME=
 ```
-.
-├── src
-│   ├── controller      //controller层
-│   ├── service         //service层
-│   ├── routes.ts       //路由
-│   └── index.ts        //项目入口index.js
-├── ecosystem.config.js //pm2配置
-├── nodemon.json        //nodemon配置
-├── package.json
-└── tsconfig.json
+
+package.json
+
+```json
+{
+  "dependencies": {
+    "@koa/multer": "^3.0.2",
+    "@koa/router": "^13.1.0",
+    "dotenv": "^16.4.7",
+    "inversify": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.16.0",
+    "koa-bodyparser": "^4.4.1",
+    "koa-helmet": "^8.0.1",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "multer": "1.4.5-lts.1",
+    "pg": "^8.7.1",
+    "reflect-metadata": "^0.2.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "3.14.0",
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-router": "^7.4.8",
+    "@types/node": "^22.13.5",
+    "@types/pg": "^8.7.1",
+    "eslint-plugin-format": "^1.0.1",
+    "nodemon": "^3.1.9",
+    "pm2": "^5.4.3",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3"
+  }
+}
 ```
 
-## 使用
+> Tips
 
-- git clone https://github.com/chenlong-io/ts-koa-starter.git
-- yarn 或者 npm i
-- yarn start 或 npm start
-- 在浏览器中开打`localhost:3000`
+服务器上运行 better-sqlite3 可能会出现问题，原因是 pnpm 默认 不会自动运行构建脚本，但 better-sqlite3 需要编译 才能正常使用。
 
-### 打包
-
-- yarn build 或 npm run build
-
-### 生产环境启动
-
-- 生产环境使用 pm2 启动 可以达到负载均衡 执行：yarn pro 或 npm run pro （生产环境端口默认：8080）
-
-## 友情链接
-
-- Koa2 [Koa (koajs) -- 基于 Node.js 平台的下一代 web 开发框架 \| Koajs 中文文档](https://koa.bootcss.com/)
-- Typescript [TypeScript 中文网 · TypeScript——JavaScript 的超集](https://www.tslang.cn/)
+```sh
+pnpm approve-builds
+pnpm rebuild better-sqlite3
+```

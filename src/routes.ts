@@ -1,13 +1,12 @@
-import {
-  hello,
-  helloName,
-  getPersonInfo,
-  postTest,
-} from './controller/home-controller';
+import Router from "@koa/router"
+import dbController from "./controller/db-controller"
+import homeController from "./controller/home-controller"
+import loginController from "./controller/login.controller"
 
-export default [
-  { path: '/', type: 'get', action: hello },
-  { path: '/person/:name', type: 'get', action: helloName },
-  { path: '/info', type: 'get', action: getPersonInfo },
-  { path: '/post', type: 'post', action: postTest },
-];
+const router = new Router()
+
+router.use(homeController.routes()).use(homeController.allowedMethods())
+router.use(dbController.routes()).use(dbController.allowedMethods())
+router.use(loginController.routes()).use(loginController.allowedMethods())
+
+export default router
