@@ -2,7 +2,7 @@
 
 **大部分代码由 claude 完成**
 
-如果想使用OEM，请用nestjs。我认为KOA就是用于快速开发的，有什么能比手写SQL更快呢？
+如果想使用ORM，请用nestjs。我认为KOA就是用于快速开发的，有什么能比手写SQL更快呢？
 
 新增文件上传，JWT，登录，权限校验，重新封装了 PostgreSQL Mysql Sqlite。
 
