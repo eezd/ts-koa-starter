@@ -3,13 +3,16 @@
  */
 import type { Context } from "koa"
 import Router from "@koa/router"
+import mysql from "src/utils/mysql"
+import pg from "src/utils/pg"
+import sqlite from "src/utils/sqlite"
 
 const router = new Router({
   prefix: "/db"
 })
 
 router.get("/pg/query", async (ctx: Context) => {
-  const result = await ctx.pg.query(`
+  const result = await pg.query(`
     SELECT * FROM books LIMIT 5
     `)
   if (result.length === 0) {
@@ -20,7 +23,7 @@ router.get("/pg/query", async (ctx: Context) => {
 })
 
 router.get("/mysql/query", async (ctx: Context) => {
-  const result = await ctx.mysql.query(`
+  const result = await mysql.query(`
     SELECT * FROM user LIMIT 5
     `)
   if (result.length === 0) {
@@ -32,7 +35,7 @@ router.get("/mysql/query", async (ctx: Context) => {
 
 // 查询用户
 router.get("/sqlite/query", async (ctx: Context) => {
-  const result = await ctx.sqlite.query("SELECT * FROM user")
+  const result = await sqlite.query("SELECT * FROM user")
   if (result.length === 0) {
     ctx.body = { code: 400, message: "用户不存在" }
   } else {
@@ -43,7 +46,7 @@ router.get("/sqlite/query", async (ctx: Context) => {
 // 查询单个用户
 router.get("/sqlite/query/:id", async (ctx: Context) => {
   const id = Number.parseInt(ctx.params.id)
-  const result = await ctx.sqlite.queryOne("SELECT * FROM user WHERE id = ?", id)
+  const result = await sqlite.queryOne("SELECT * FROM user WHERE id = ?", id)
   if (!result) {
     ctx.body = { code: 400, message: "用户不存在" }
   } else {
@@ -59,7 +62,7 @@ router.post("/sqlite/add", async (ctx) => {
     ctx.body = { error: "姓名必填" }
     return
   }
-  const result = await ctx.sqlite.execute(
+  const result = await sqlite.execute(
     "INSERT INTO user (name) VALUES (?)",
     [name]
   )
@@ -83,7 +86,7 @@ router.post("/sqlite/with-tasks", async (ctx) => {
     return
   }
 
-  const result = await ctx.sqlite.transaction((db) => {
+  const result = await sqlite.transaction((db) => {
     // 在事务中插入用户
     const userStmt = db.prepare("INSERT INTO user (name) VALUES (?)")
     const userResult = userStmt.run(name)

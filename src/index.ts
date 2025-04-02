@@ -8,7 +8,7 @@ import json from "koa-json"
 import logger from "koa-logger"
 import koaStatic from "koa-static"
 import { PORT } from "./config"
-import databaseMiddleware from "./middleWare/databaseMiddleware"
+// import databaseMiddleware from "./middleWare/databaseMiddleware"
 import routes from "./routes"
 
 const app = new Koa()
@@ -28,7 +28,7 @@ app.use(logger())
 
 app.use(bodyParser())
 
-app.use(databaseMiddleware)
+// app.use(databaseMiddleware)
 
 // ================= 全局错误处理中间件 =================
 app.use(async (ctx: Koa.Context, next: () => Promise<void>) => {

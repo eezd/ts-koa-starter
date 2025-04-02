@@ -35,9 +35,9 @@ export class SQLiteWrapper {
       this.db.pragma("foreign_keys = ON")
 
       // 设置日志模式
-      if (process.env.NODE_ENV !== "production") {
-        this.db.pragma("journal_mode = WAL")
-      }
+      // if (process.env.NODE_ENV !== "production") {
+      //   this.db.pragma("journal_mode = WAL")
+      // }
     } catch (err) {
       console.error("SQLite database initialization error:", err)
       throw err
