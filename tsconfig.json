@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ES2023",
+
+    "emitDecoratorMetadata": true,
+    // 装饰器支持
+    "experimentalDecorators": true,
+
+    // 路径映射
+    "baseUrl": "./",
+    "rootDir": "./src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    // 严格类型检查 - 这是最重要的改进
+    // "strict": true,
+    // "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true, // 2025年推荐
+    "declaration": true, // 生成 .d.ts 文件
+
+    // 输出控制
+    "noEmitOnError": true,
+    // 输出配置
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": true, // 您设置为 false，建议改为 true
+    // 模块相关
+    "esModuleInterop": true,
+    "isolatedModules": true, // 重要：确保每个文件都能独立编译
+    // 性能优化
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}
